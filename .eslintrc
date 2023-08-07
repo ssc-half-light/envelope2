@@ -6,6 +6,16 @@
     }
   },
   "rules": {
+    "multiline-ternary": "off",
+    "operator-linebreak": [
+      "error",
+      "after",
+      {
+        "overrides": {
+          ":": "before"
+        }
+      }
+    ],
     "no-multiple-empty-lines": [
       "error",
       {

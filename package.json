@@ -1,5 +1,5 @@
 {
-  "name": "@ssc-hermes/envelope",
+  "name": "@ssc-hermes/envelope2",
   "version": "0.0.0",
   "description": "Envelopes that have been authorized by the recipient",
   "directories": {
@@ -19,6 +19,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@noble/ed25519": "^2.0.0",
     "@oddjs/odd": "^0.37.2",
     "@ssc-hermes/identity": "^0.0.5",
     "@ssc-hermes/message": "^0.4.7",
@@ -34,7 +35,7 @@
     "esbuild": "^0.15.18",
     "standardx": "^7.0.0",
     "tap-arc": "^0.3.5",
-    "typescript": "^5.0.2"
+    "typescript": "^5.1.6"
   },
   "exports": {
     ".": {
