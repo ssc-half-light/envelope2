@@ -21,6 +21,7 @@ In practical terms, that means that the *private* side could be encrypted *to* A
 
 Thinking about a social network, this means that a server would be able to see that Alice has gotten a message from someone they gave out an envelope to, nothing else. The server can not even determine the *set* of people that Alice has given envelopes to, because Alice could give out envelopes by a variety of means, like on their website, or via text message.
 
+### keypair vs signature
 This decoupling of messages from our application is made possilbe by including a single-use keypair in the envelope. For a different version, see [@ssc-hermes/envelope](https://github.com/ssc-hermes/envelope). There the envelope is just a signed certificate, which means that Alice would need to know ahead of time *who* they are expecting to receive messages from. Meaning you would only give out envelopes to people with a pre-existing account in the network.
 
 In this version, Alice doesn't need to know who they gave out an envelope to, but they can be sure that the message is legitimate. So, for example, Alice could give out an envelope to someone who doesn't yet have an account, then get a message after the new person has created an account.
