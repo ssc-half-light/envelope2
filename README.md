@@ -1,6 +1,8 @@
 # envelope2 ![tests](https://github.com/ssc-hermes/envelope/actions/workflows/nodejs.yml/badge.svg)
 
-Private messages that hide the identity of the sender.
+Private messages that hide the identity of the sender, but leave the recipient of the message visible. That way the messages do not reveal metadata of who is talking to whom. The recipient is still visible though, which allows us to index messages by recipient, so that way Alice can write a query like *show me any private messages addressed to Alice*.
+
+Message content is e2e encrypted, thanks to a [keystore](https://github.com/fission-codes/keystore-idb) module that lets us store non-extractable keys on the client machines.
 
 -------
 
