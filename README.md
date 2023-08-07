@@ -6,7 +6,7 @@ Message content is e2e encrypted thanks to a [keystore](https://github.com/fissi
 
 -------
 
-__the idea__
+## the idea
 Create an 'envelope' that is certified by the addressee.
 
 Alice wants to send a message to Bob.
