@@ -9,6 +9,7 @@ import {
     create as createEnvelope,
     Envelope,
     // wrapMessage,
+    checkEnvelope,
     arrFromString,
     sealEnvelope,
     EncryptedContent,
@@ -39,28 +40,16 @@ test('create an envelope to alice', async t => {
         "alice's username should be on the envelope")
 })
 
-// let alicesKeys:Record<string, string>
 let msgContent:EncryptedContent
 let envelopedMsg:EnvelopedMessage
-// let bob:Identity
 
 test('bob puts a message in the envelope to alice', async t => {
-    // bobsCrypto = await createCryptoComponent()
-    // bob = await createId(bobsCrypto, { humanName: 'bob' })
-
     const content = await createMsg(bobsCrypto, {
         from: { username: bob.username },
         text: 'hello'
     })
 
-    // console.log('***content***', content)
-
-    // const [
-    //     { envelope: returnedEnvelope, message },  // the encrypted message content
-    //     keys  // map of sender's device name to encrypted key string
-    // ] = await wrapMessage(bob, alice, alicesEnvelope, content)
-
-    envelopedMsg = await sealEnvelope(bob, alice, alicesEnvelope, content, {
+    envelopedMsg = await sealEnvelope(alice, alicesEnvelope, content, {
         crypto: bobsCrypto
     })
 
@@ -69,26 +58,23 @@ test('bob puts a message in the envelope to alice', async t => {
 
     t.ok(envelopedMsg, 'should return the envelope')
     t.ok(envelopedMsg.signature, 'should have a signature on the envelope')
-    // t.equal(envelopedMsg.signature, alicesEnvelope.signature,
-    //     'the envelope we get back shoud be equal to what was passed in')
-    // t.ok(message, 'should return the encrypted content')
-    // t.ok(keys, 'should return keys')
-
-    // console.log('**msg**', message)
 })
 
 test('an anonymous node can verify the message is ok', async t => {
     const msg = fromString(serialize(msgContent), 'utf8')
     const sig = fromString(envelopedMsg.signature, 'base64pad')
     const pubKey = arrFromString(envelopedMsg.envelopeKey)
-    // const isValid = await ed.verifyAsync(signature, message, pubKey);
     const isOk = await ed.verifyAsync(sig, msg, pubKey)
     t.equal(isOk, true, 'should verify a valid envelope')
 })
 
+test('envelope.checkEnvelope', async t => {
+    const isOk = await checkEnvelope(envelopedMsg)
+    t.equal(isOk, true, 'should validate a valid envelop')
+})
+
 test('alice can decrypt a message addressed to alice', async t => {
     const decrypted = await decryptMessage(alicesCrypto, msgContent)
-    console.log('***decrypted***', decrypted)
     t.equal(decrypted.from.username, bob.username,
         "should have bob's username in decrypted message")
     t.equal(decrypted.text, 'hello', 'should have the original text of the message')

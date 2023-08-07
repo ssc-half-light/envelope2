@@ -79,7 +79,6 @@ export interface EnvelopedMessage {
  * `message`.
  */
 export async function sealEnvelope (
-    me:Identity,
     recipient:Identity,
     envelope:Envelope,
     content:Content,
@@ -89,24 +88,15 @@ export async function sealEnvelope (
     const encryptedContent = await encryptContent(key, serialize(content),
         recipient)
 
-    // const encryptedContent = await encryptContent(key, serialize({
-    //     content,
-    //     from: {
-    //         username: me.username,
-    //         rootDid: me.rootDid
-    //     }
-    // }), recipient)
-
-    const contentForSigning:Uint8Array = fromString(serialize(encryptedContent), 'utf8')
+    const contentForSigning:Uint8Array = fromString(serialize(encryptedContent),
+        'utf8')
 
     let _privKey
+
     // if not passed in, the priv key should be embedded in the envelope
     if (!privKey) {
         if (!crypto) throw new Error('not crypto and not privKey')
         if (!envelope.encrypted) throw new Error('not privKey and not encrypted')
-        // const { privateKey } = await decryptMessage(crypto, envelope.encrypted)
-        // _privKey = await decryptMessage(crypto, envelope.encrypted)
-        // _privKey = privateKey
         _privKey = await getKeyFromEnvelope(crypto, envelope.encrypted)
     }
 
@@ -120,6 +110,16 @@ export async function sealEnvelope (
         signature: toString(signature, 'base64pad'),
         envelopeKey: envelope.publicKey
     }
+}
+
+export async function checkEnvelope (envelopedMsg:EnvelopedMessage)
+:Promise<boolean> {
+    const { message } = envelopedMsg
+    const msg = fromString(serialize(message), 'utf8')
+    const sig = fromString(envelopedMsg.signature, 'base64pad')
+    const pubKey = arrFromString(envelopedMsg.envelopeKey)
+
+    return ed.verifyAsync(sig, msg, pubKey)
 }
 
 // /**
