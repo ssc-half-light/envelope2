@@ -70,7 +70,7 @@ test('an anonymous node can verify the message is ok', async t => {
 
 test('envelope.checkEnvelope', async t => {
     const isOk = await checkEnvelope(envelopedMsg)
-    t.equal(isOk, true, 'should validate a valid envelop')
+    t.equal(isOk, true, 'should validate a valid envelope')
 })
 
 test('alice can decrypt a message addressed to alice', async t => {
