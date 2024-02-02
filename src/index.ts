@@ -122,45 +122,6 @@ export async function checkEnvelope (envelopedMsg:EnvelopedMessage)
     return ed.verifyAsync(sig, msg, pubKey)
 }
 
-// /**
-//  * Encrypt a string and put it into an envelope. The envelope tells us who the
-//  * recipient of the message is; the message sender is hidden.
-//  * @param me Your Identity.
-//  * @param recipient The identity of the recipient, because we need to encrypt
-//  * the message to the recipient.
-//  * @param envelope The envelope we are putting it in
-//  * @param content The content that will be encrypted to the recipient
-//  * @returns [message, <sender's keys>]
-//  * Return an array of [message, keys], where keys is a map of the sender's devices
-//  * to the symmetric key encrypted to that device. This is returned as a seperate
-//  * object because we *don't* want the sender device names to be in the message.
-//  */
-// export async function wrapMessage (
-//     me:Identity,
-//     recipient:Identity,  // because we need to encrypt the message to the recipient
-//     envelope:Envelope,
-//     content:Content
-// ):Promise<[{
-//     envelope:Envelope,
-//     message:EncryptedContent
-// }, Keys]> {
-//     // encrypt the content *to* the recipient,
-
-//     // create a key
-//     const key = await aesGenKey(ALGORITHM)
-//     // encrypt the key to the recipient,
-//     // also encrypt the content with the key
-//     const encryptedContent = await encryptContent(key, serialize(content),
-//         recipient)
-
-//     return [
-//         {
-//             envelope,
-//             message: encryptedContent,
-//         },
-//         await encryptKeys(me, key)]
-// }
-
 /**
  * Get a private key that is embedded in the envelope. That means this envelope
  * was created specifically for you.

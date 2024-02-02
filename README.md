@@ -1,4 +1,9 @@
-# envelope2 ![tests](https://github.com/ssc-hermes/envelope/actions/workflows/nodejs.yml/badge.svg)
+# envelope2
+![tests](https://github.com/ssc-half-light/envelope2/actions/workflows/nodejs.yml/badge.svg)
+[![Socket Badge](https://socket.dev/api/badge/npm/package/@ssc-half-light/envelope2)](https://socket.dev/npm/package/@ssc-half-light/envelope2)
+[![module](https://img.shields.io/badge/module-ESM-blue?style=flat-square)](README.md)
+[![types](https://img.shields.io/npm/types/@ssc-half-light/envelope2?style=flat-square)](README.md)
+[![license](https://nichoth.github.io/badge/license-polyform-shield.svg)](LICENSE)
 
 Private messages that hide the identity of the sender, but leave the recipient of the message visible. That way the messages do not reveal metadata of who is talking to whom, but we can still index messages by recipient, so, for example, Alice can write a query like *show me any private messages addressed to Alice*.
 
